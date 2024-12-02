@@ -1,5 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using adventofcode2024;
+using adventofcode2024.Days;
 
-var day1 = new Day1();
-day1.Run();
+Day1.Run();
+Day2.Run();
