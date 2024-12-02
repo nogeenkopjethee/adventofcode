@@ -1,32 +1,21 @@
-﻿namespace adventofcode2024;
-internal class Day1
+﻿namespace adventofcode2024.Days;
+internal static class Day1
 {
-    private readonly IList<int> LeftList;
-    private readonly IList<int> RightList;
-
-    public Day1()
+    public static void Run()
     {
-        const string localCachePath = "./data/day1_input";
-        string workingDirectory = Environment.CurrentDirectory;
+        const string inputPath = "day1_input";
+        var (leftList, rightList) = GetLists(inputPath);
 
-        string projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.FullName ?? throw new NullReferenceException("Can't find project dir.");
-        string listPath = Path.Combine(projectDirectory, localCachePath);
-
-        (LeftList, RightList) = GetLists(listPath);
+        Part1(leftList, rightList);
+        Part2(leftList, rightList);
     }
 
-    public void Run()
-    {
-        Part1();
-        Part2();
-    }
-
-    private void Part1()
+    private static void Part1(IList<int> leftList, IList<int> rightList)
     {
         int totalDistance = 0;
 
-        List<int> leftListCopy = new(LeftList);
-        List<int> rightListCopy = new(RightList);
+        List<int> leftListCopy = new(leftList);
+        List<int> rightListCopy = new(rightList);
 
         while (leftListCopy.Count > 0 & rightListCopy.Count > 0)
         {
@@ -44,13 +33,13 @@ internal class Day1
         Console.WriteLine(totalDistance);
     }
 
-    private void Part2()
+    private static void Part2(IList<int> leftList, IList<int> rightList)
     {
         int similarityScore = 0;
 
-        foreach (var leftListItem in LeftList)
+        foreach (var leftListItem in leftList)
         {
-            var count = RightList.Count(rightListItem => rightListItem == leftListItem);
+            var count = rightList.Count(rightListItem => rightListItem == leftListItem);
             var score = count * leftListItem;
             similarityScore += score;
         }
@@ -59,9 +48,9 @@ internal class Day1
         Console.WriteLine(similarityScore);
     }
 
-    private static (IList<int> leftList, IList<int> rightList) GetLists(string listPath)
+    private static (IList<int> leftList, IList<int> rightList) GetLists(string fileName)
     {
-        string input = File.ReadAllText(listPath);
+        var input = Helpers.GetFileAsString(fileName);
 
         List<int> leftList = [];
         List<int> rightList = [];
@@ -70,8 +59,8 @@ internal class Day1
         string? line;
         while ((line = reader.ReadLine()) != null)
         {
-            leftList.Add(Int32.Parse(line.Substring(0, 5)));
-            rightList.Add(Int32.Parse(line.Substring(8, 5)));
+            leftList.Add(int.Parse(line.Substring(0, 5)));
+            rightList.Add(int.Parse(line.Substring(8, 5)));
         }
 
         return (leftList, rightList);
