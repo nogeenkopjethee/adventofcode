@@ -1,4 +1,5 @@
 ﻿namespace adventofcode2024.Days;
+
 internal static class Day1
 {
     public static void Run()
