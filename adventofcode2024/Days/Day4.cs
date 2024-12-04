@@ -167,7 +167,7 @@ internal static class Day4
         (int row, int column) bottomLeft = (row + 1, column - 1);
         (int row, int column) bottomRight = (row + 1, column + 1);
 
-        // Here, I basically brute-force the 4 posibble options.
+        // Here, I basically brute-force the 4 possible options.
 
         // M.S
         // .A.
